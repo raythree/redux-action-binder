@@ -9,8 +9,10 @@ npm install redux-action-binder
 ```
 
 ### Usage
+
+In redux/modules:
+
 ```javascript
-// in redux/modules:
 import { actionBinder } from 'redux-action-binder';
 
 // typically you'll be loading all redux modules to create your combined reducer:
@@ -21,8 +23,10 @@ import { posts } from './posts';
 
 const getBoundActions = actionBinder.getBoundActions({ login, auth, posts });
 export getBoundActions;
+```
 
-// In the PostsContainer class:
+In the PostsContainer class:
+```javascript
 import { getBoundActions } from './redux/modules';
 
 function mapStateToProps(state) {
@@ -43,7 +47,6 @@ function mapDispatchToProps(dispatch) {
     posts: getBoundActions(dispatch).posts()
   }  
 }
-
 ```
 Note that getBoundActions returns an object who's properties are functions. Calling
 posts() the first time will invoke bindActionCreators on all post actions and subsequent
