@@ -1,3 +1,5 @@
-const getActions = require('./lib/getActions').default;
+const actionBinder = require('./lib/ActionBinder').default;
 
-module.exports = getActions;
+module.exports = {
+  actionBinder: actionBinder
+}

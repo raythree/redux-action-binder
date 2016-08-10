@@ -21,6 +21,8 @@ import { auth } from './auth';
 import { posts } from './posts';
 //...
 
+actionBinder.ignore('x', 'y', 'z'); // do not execute any functions with these names
+
 const getBoundActions = actionBinder.getBoundActions({ login, auth, posts });
 export getBoundActions;
 ```
