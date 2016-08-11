@@ -14,12 +14,7 @@ export default function getActions(moduleObject, ignoreList) {
     if (typeof obj === 'function') {
       const fname = obj.name;
       if (fname && ignoreList.indexOf(fname) < 0) {
-        const ret = obj();
-        if (ret && typeof ret === 'object') {
-          if (ret['type'] && typeof ret['type'] === 'string') {
-            actions[obj.name] = obj;
-          }
-        }
+        actions[obj.name] = obj;
       }
     }
   });

@@ -4,7 +4,7 @@ import getActions from './getActions';
 //------------------------------------------------------------------------------
 // Usage:
 //
-// import { ActionBinder } from 'redux-action-binder';
+// import { actionBinder } from 'redux-action-binder';
 //
 // import auth from './auth';
 // import login from './login';
@@ -16,27 +16,36 @@ import getActions from './getActions';
 // export default actionBinder.getBoundActions;
 //
 //------------------------------------------------------------------------------
-function ActionBinder(opts) {
+function ActionBinder() {
 
-  const boundActions = {};
-  const boundActionAccessor = {};
+  let boundActions = {};
+  let boundActionAccessor = {};
 
-  const actions = {};       // actions to be bound
-  const reducers = {};      // collected reducers for combining, only if reduce == true
+  let actions = {};       // actions to be bound
+  let reducers = {};      // collected reducers for combining, only if reduce == true
   let reduxDispatch = null; // capture the dispach passed to getBoundActions(dispatch)
 
-  const ignoreNames = [];
-
-  if (opts && opts.ignore && typeof opts.ignore.forEach === 'function') {
-    opts.ignore.forEach((name) => {
-      ignoreNames.push(name);
-    });
-  }
+  this.reset = () => {
+    boundActions = {};
+    boundActionAccessor = {};
+    actions = {};
+    reducers = {};
+    reduxDispatch = null;
+  };
 
   // Input is an object containing all imported redux modules keyed by module name.
-  this.bindActions = (allModules) => {
+  this.bindActions = (allModules, ignore) => {
     if (!allModules) return;
     if (!(typeof allModules === 'object')) return;
+
+    const ignoreNames = [];
+
+    if (ignore && typeof ignore.forEach === 'function') {
+      ignore.forEach((name) => {
+        ignoreNames.push(name);
+      });
+    }
+
     Object.keys(allModules).forEach((modName) => {
       // for each module create an accessor function that will be used
       // to access all bound actions for the module. This function will
@@ -68,4 +77,4 @@ function ActionBinder(opts) {
 
 }
 
-export default ActionBinder;
+export default new ActionBinder();
