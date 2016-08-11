@@ -50,3 +50,11 @@ function mapDispatchToProps(dispatch) {
 Note that getBoundActions returns an object who's properties are functions. Calling
 posts() the first time will invoke bindActionCreators on all post actions and subsequent
 calls will return the already bound actions. Actions are bound only once per each module.
+
+### What gets bound
+[This](https://github.com/erikras/ducks-modular-redux) seems to be a very good way to structure redux actions, types and functions. The actionBinder currently imports *all named* functions from the modules provided. If the modules include other functions you can tell the actionBinder to ignore them by providing a second argument:
+
+```javascript
+actionBinder.bindActions(...modules, ['func1', 'func2']);
+```
+In this case it will ignore functions func1 and func2.
