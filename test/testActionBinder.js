@@ -1,5 +1,5 @@
 const assert = require('assert')
-const ActionBinder = require('../index').ActionBinder;
+const actionBinder = require('../index');
 
 //--------------------------------------------------------
 // This is what will be passed to ActionBinder.bindActions
@@ -30,10 +30,8 @@ function makeModules() {
 
 describe('redux-action-binder tests', function () {
 
-  let actionBinder;
-
   beforeEach(() => {
-    actionBinder = new ActionBinder();
+    actionBinder.reset();
   });
 
   it('should export properly', function () {
@@ -74,8 +72,7 @@ describe('redux-action-binder tests', function () {
       console.log('DISPATCH --> ' + count);
     }
 
-    actionBinder = new ActionBinder({ignore: ['login']});
-    actionBinder.bindActions(allModules);
+    actionBinder.bindActions(allModules, ['login']);
     const actions = actionBinder.getBoundActions(dispatch);
 
     assert(typeof actions.posts().getPosts === 'function');

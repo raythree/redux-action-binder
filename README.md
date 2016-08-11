@@ -1,19 +1,16 @@
 # redux-action-binder
 A helper to easily and efficiently expose bound action creators.
 
-NOTE: This package is designed to work with [redux "ducks" modules](https://github.com/erikras/ducks-modular-redux).
-
 ### Installation
 ```
 npm install redux-action-binder
 ```
-
 ### Usage
 
 In redux/modules:
 
 ```javascript
-import { ActionBinder } from 'redux-action-binder';
+import actionBinder from 'redux-action-binder';
 
 // typically you'll be loading all redux modules to create your combined reducer:
 import { login } from './login';
@@ -21,9 +18,9 @@ import { auth } from './auth';
 import { posts } from './posts';
 //...
 
-actionBinder.ignore('x', 'y', 'z'); // do not execute any functions with these names
+actionBinder.bindActions({ login, auth, posts });
+const getBoundActions = actionBinder.getBoundActions;
 
-const getBoundActions = actionBinder.getBoundActions({ login, auth, posts });
 export getBoundActions;
 ```
 
