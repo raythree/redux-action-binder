@@ -1,8 +1,5 @@
-// Extract all action creators from an object. An object is considered
-// an action creator if it is a function that returns an object with
-// a type property of type 'string'.
 //
-// () => { return {type: 'AN_ACTION' };}
+// Extract all action named functions from a modules exports.
 //
 export default function getActions(moduleObject, ignoreList) {
   if (!moduleObject) return {};
