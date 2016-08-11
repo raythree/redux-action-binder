@@ -1,5 +1,5 @@
-const actionBinder = require('./lib/ActionBinder').default;
+const ActionBinder = require('./lib/ActionBinder').default;
 
 module.exports = {
-  actionBinder: actionBinder
+  ActionBinder: ActionBinder
 }

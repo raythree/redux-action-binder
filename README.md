@@ -13,7 +13,7 @@ npm install redux-action-binder
 In redux/modules:
 
 ```javascript
-import { actionBinder } from 'redux-action-binder';
+import { ActionBinder } from 'redux-action-binder';
 
 // typically you'll be loading all redux modules to create your combined reducer:
 import { login } from './login';
