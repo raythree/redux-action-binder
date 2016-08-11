@@ -4,7 +4,7 @@ import getActions from './getActions';
 //------------------------------------------------------------------------------
 // Usage:
 //
-// import { actionBinder } from 'redux-action-binder';
+// import actionBinder from 'redux-action-binder';
 //
 // import auth from './auth';
 // import login from './login';
