@@ -27,8 +27,7 @@
   },
   "homepage": "https://github.com/raythree/react-bootstrap-table#readme",
   "peerDependencies": {
-    "react": ">=0.14",
-    "bootstrap": "~3.3.7"
+    "redux": "~3.5.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
