@@ -87,4 +87,4 @@ const resetActionBinder = () => {
 
 export { getBoundActions, resetActionBinder };
 ```
-Call the resetActionBinder method each time you reconfigure the store for your tests.
+Call the resetActionBinder method each time you reconfigure the store for your tests or the actions will be executing against a different store instance.
