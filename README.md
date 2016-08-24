@@ -7,26 +7,35 @@ npm install redux-action-binder
 ```
 ### Usage
 
-In redux/modules:
+This was designed with ["Ducks reducer bundles"](https://github.com/erikras/ducks-modular-redux) in mind but regardless, it will bind all named functions located in a module. As an example, assuming a structure [similar to this](https://github.com/erikras/react-redux-universal-hot-example/tree/master/src/redux):
+
+```
+redux/
+  reducer.js  // returns the combined reducer
+  actions.js  // returns the bound actions (see below)
+  modules/
+    auth.js   // reducer modules exporting action constants, actions and module reducer
+    login.js
+    posts.js
+```
 
 ```javascript
+// actions.js
 import actionBinder from 'redux-action-binder';
 
 // typically you'll be loading all redux modules to create your combined reducer:
-import { login } from './login';
-import { auth } from './auth';
-import { posts } from './posts';
-//...
+import * as login from './login';
+import * as auth from './auth';
+import * as posts from './posts';
 
 actionBinder.bindActions({ login, auth, posts });
 const getBoundActions = actionBinder.getBoundActions;
-
 export getBoundActions;
 ```
 
 In the PostsContainer class:
 ```javascript
-import { getBoundActions } from './redux/modules';
+import { getBoundActions } from './redux/actions';
 
 function mapStateToProps(state) {
   return {
