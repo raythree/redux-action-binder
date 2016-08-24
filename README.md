@@ -23,7 +23,7 @@ redux/
 // actions.js
 import actionBinder from 'redux-action-binder';
 
-// typically you'll be loading all redux modules to create your combined reducer:
+// extract actions from all modules
 import * as login from './login';
 import * as auth from './auth';
 import * as posts from './posts';
