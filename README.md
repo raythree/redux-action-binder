@@ -61,7 +61,7 @@ posts() the first time will invoke bindActionCreators on all post actions and su
 calls will return the already bound actions. Actions are bound only once per each module.
 
 ### What gets bound
-[This](https://github.com/erikras/ducks-modular-redux) seems to be a very good way to structure redux actions, types and reducers. The actionBinder currently imports *all named* functions from the modules provided. If the modules include other functions you can tell the actionBinder to ignore them by providing a second argument:
+The actionBinder currently imports *all named* functions from the modules provided. If the modules include other functions you can tell the actionBinder to ignore them by providing a second argument:
 
 ```javascript
 actionBinder.bindActions(...modules, ['func1', 'func2']);
