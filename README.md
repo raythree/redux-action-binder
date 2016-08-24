@@ -56,9 +56,7 @@ function mapDispatchToProps(dispatch) {
   }  
 }
 ```
-Note that getBoundActions returns an object who's properties are functions. Calling
-posts() the first time will invoke bindActionCreators on all post actions and subsequent
-calls will return the already bound actions. Actions are bound only once per each module.
+Note that getBoundActions returns an object who's properties are functions. Calling posts() the first time will invoke bindActionCreators on all post actions and subsequent calls will return the already bound actions. Actions are bound only once per each module. *NOTE:* See warning about testing below.
 
 ### What gets bound
 The actionBinder currently imports *all named* functions from the modules provided. If the modules include other functions you can tell the actionBinder to ignore them by providing a second argument:
@@ -67,3 +65,24 @@ The actionBinder currently imports *all named* functions from the modules provid
 actionBinder.bindActions(...modules, ['func1', 'func2']);
 ```
 In this case it will ignore functions func1 and func2.
+
+### Warning about running tests
+If you are running tests with a beforeEach that resets the store, don't forget that the action binder caches the bound functions. For this specific use case, you will need to ```reset``` it and rebind the actions. For example, here is the ```redux/actions.js``` that exposes the bound methods as well as the ```reset``` function:
+
+```javascript
+import actionBinder from 'redux-action-binder';
+import * as login from './modules/login';
+import * as auth from './modules/auth';
+import * as posts   from './modules/posts';
+
+actionBinder.bindActions({login, auth, posts});
+const getBoundActions = actionBinder.getBoundActions;
+
+const resetActionBinder = () => {
+  actionBinder.reset();
+  actionBinder.bindActions({login, auth, posts});
+};
+
+export { getBoundActions, resetActionBinder };
+```
+Call the resetActionBinder method each time you reconfigure the store for your tests.
