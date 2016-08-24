@@ -30,7 +30,7 @@ import * as posts from './posts';
 
 actionBinder.bindActions({ login, auth, posts });
 const getBoundActions = actionBinder.getBoundActions;
-export getBoundActions;
+export { getBoundActions };
 ```
 
 In the PostsContainer class:
