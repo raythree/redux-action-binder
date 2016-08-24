@@ -56,7 +56,9 @@ function mapDispatchToProps(dispatch) {
   }  
 }
 ```
-Note that getBoundActions returns an object who's properties are functions. Calling posts() the first time will invoke bindActionCreators on all post actions and subsequent calls will return the already bound actions. Actions are bound only once per each module. *NOTE:* See warning about testing below.
+Note that getBoundActions returns an object who's properties are functions. Calling posts() the first time will invoke bindActionCreators on all post actions and subsequent calls will return the already bound actions. Actions are bound only once per each module. 
+
+**IMPORTANT NOTE:** See warning about testing below.
 
 ### What gets bound
 The actionBinder currently imports *all named* functions from the modules provided. If the modules include other functions you can tell the actionBinder to ignore them by providing a second argument:
