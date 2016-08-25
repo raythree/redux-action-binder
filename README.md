@@ -1,6 +1,8 @@
 # redux-action-binder
 A helper to easily and efficiently expose bound action creators.
 
+**IMPORTANT**: Not yet ready for production due to name mangling. This issue is being worked out now.
+
 ### Installation
 ```
 npm install redux-action-binder
@@ -56,7 +58,7 @@ function mapDispatchToProps(dispatch) {
   }  
 }
 ```
-Note that getBoundActions returns an object who's properties are functions. Calling posts() the first time will invoke bindActionCreators on all post actions and subsequent calls will return the already bound actions. Actions are bound only once per each module. 
+Note that getBoundActions returns an object who's properties are functions. Calling posts() the first time will invoke bindActionCreators on all post actions and subsequent calls will return the already bound actions. Actions are bound only once per each module.
 
 **IMPORTANT NOTE:** See warning about testing below.
 
