@@ -89,7 +89,7 @@ actionBinder.config({useAnnotations: true});
 **IMPORTANT NOTE:** See warning about testing below.
 
 ### What gets bound
-The actionBinder currently imports *all named* functions from the modules provided. If the modules include other functions you can tell the actionBinder to ignore them by providing a second argument:
+If not using annotations the actionBinder currently imports *all named* functions from the modules provided. If the modules include other functions you can tell the actionBinder to ignore them by providing a second argument:
 
 ```javascript
 actionBinder.bindActions(...modules, ['func1', 'func2']);
