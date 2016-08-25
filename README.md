@@ -1,33 +1,6 @@
 # redux-action-binder
 A helper to easily and efficiently expose bound action creators.
 
-**IMPORTANT**: By default, the current implementation imports all named functions found in the provided modules. In production builds this will not work if mangling is enabled. You must disable name mangling to use this, for example if using Webpack you can configure the Uglify plugin like this:
-
-```javascript
-// Minify JS
-new webpack.optimize.UglifyJsPlugin({
-  mangle: false
-})
-```
-
-If you have name mangling enabled you must mark all of the action creator functions using the static string ```"@action name;"```, for example:
-
-```javascript
-export function loginSubmit() {
-  "@action loginSubmit";
-  return {type: LOGIN_SUBMIT, user, pass}
-}
-```
-The name following the @action marker will be used as the property name of the function. This way, even if the function names are mangled this will still work:
-```
-  getBoundActions(dispatch).login().loginSubmit(user, pass)
-```
-
-To enable this feature you must configure the action binder prior to calling bindActions:
-```javascript
-actionBinder.config({useAnnotations: true});
-```
-
 ### Installation
 ```
 npm install redux-action-binder
@@ -84,6 +57,34 @@ function mapDispatchToProps(dispatch) {
 }
 ```
 Note that getBoundActions returns an object who's properties are functions. Calling posts() the first time will invoke bindActionCreators on all post actions and subsequent calls will return the already bound actions. Actions are bound only once per each module.
+
+**IMPORTANT**: By default, the current implementation imports all named functions found in the provided modules. In production builds this will not work if mangling is enabled. You must disable name mangling to use this, for example if using Webpack you can configure the Uglify plugin like this:
+
+```javascript
+// Minify JS
+new webpack.optimize.UglifyJsPlugin({
+  mangle: false
+})
+```
+
+If you have name mangling enabled you must mark all of the action creator functions using the static string ```"@action name;"```, for example:
+
+```javascript
+export function loginSubmit() {
+  "@action loginSubmit";
+  return {type: LOGIN_SUBMIT, user, pass}
+}
+```
+The name following the @action marker will be used as the property name of the function. This way, even if the function names are mangled this will still work:
+```
+  getBoundActions(dispatch).login().loginSubmit(user, pass)
+```
+
+To enable this feature you must configure the action binder prior to calling bindActions:
+```javascript
+actionBinder.config({useAnnotations: true});
+```
+
 
 **IMPORTANT NOTE:** See warning about testing below.
 
