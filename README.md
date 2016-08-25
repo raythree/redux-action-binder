@@ -1,7 +1,7 @@
 # redux-action-binder
 A helper to easily and efficiently expose bound action creators.
 
-**IMPORTANT**: The current implementation imports all named functions found in the provided modules. In production builds this will not work if mangling is enabled. You must disable name mangling to use this, for example if using Webpack you can configure the Uglify plugin like this:
+**IMPORTANT**: By default, the current implementation imports all named functions found in the provided modules. In production builds this will not work if mangling is enabled. You must disable name mangling to use this, for example if using Webpack you can configure the Uglify plugin like this:
 
 ```javascript
 // Minify JS
@@ -10,7 +10,18 @@ new webpack.optimize.UglifyJsPlugin({
 })
 ```
 
-A future version will support a different annotation or way of tagging the action creators so they can be identified as such.
+If you have name mangling enabled you must mark all of the action creator functions using the static string ```"@action name;"```, for example:
+
+```javascript
+export function loginSubmit() {
+  "@action loginSubmit";
+  return {type: LOGIN_SUBMIT, user, pass}
+}
+```
+The name following the @action marker will be used as the property name of the function. This way, even if the function names are mangled this will still work:
+```
+  getBoundActions(dispatch).login().loginSubmit(user, pass)
+```
 
 ### Installation
 ```

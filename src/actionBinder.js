@@ -18,6 +18,7 @@ import getActions from './getActions';
 //------------------------------------------------------------------------------
 function ActionBinder() {
 
+  let useAnnotations = false;
   let boundActions = {};
   let boundActionAccessor = {};
 
@@ -25,12 +26,19 @@ function ActionBinder() {
   let reducers = {};      // collected reducers for combining, only if reduce == true
   let reduxDispatch = null; // capture the dispach passed to getBoundActions(dispatch)
 
+  this.config = (opts) => {
+    if (opts && opts.useAnnotations) {
+      useAnnotations = true;
+    }
+  };
+
   this.reset = () => {
     boundActions = {};
     boundActionAccessor = {};
     actions = {};
     reducers = {};
     reduxDispatch = null;
+    useAnnotations = false;
   };
 
   // Input is an object containing all imported redux modules keyed by module name.
@@ -65,7 +73,7 @@ function ActionBinder() {
       }
 
       const modObject = allModules[modName];
-      let moduleActions = getActions(modObject, ignoreNames);
+      let moduleActions = getActions(modObject, ignoreNames, useAnnotations);
       actions[modName] = moduleActions; // store all actions by name so they can be bound when needed
     });
   };

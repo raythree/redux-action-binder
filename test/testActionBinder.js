@@ -28,6 +28,30 @@ function makeModules() {
   };
 }
 
+function makeModulesWithAnnotations() {
+  const posts = {
+    getPosts: function getPosts() {
+      "@action getPosts";
+      return {type: 'GET_POST'};
+    },
+    GET_POST: 'GET_POST',
+    func2: function () {
+      // not annotated
+      return null;
+    }
+  };
+
+  const auth = {
+    default: function reducer() {},
+    login: function login() { "@action myLogin"; return {type: 'LOGIN'}; },
+  }
+
+  return {
+    posts: posts,
+    auth: auth
+  };
+}
+
 describe('redux-action-binder tests', function () {
 
   beforeEach(() => {
@@ -62,6 +86,29 @@ describe('redux-action-binder tests', function () {
     assert(count === 2);
   });
 
+  it('should get not get actions that are not annotated', function () {
+    const allModules = makeModules();
+    function dispatch() {}
+
+    actionBinder.config({useAnnotations: true});
+    actionBinder.bindActions(allModules);
+    const actions = actionBinder.getBoundActions(dispatch);
+    assert(Object.keys(actions.posts()).length === 0);
+    assert(Object.keys(actions.auth()).length === 0);
+  });
+
+  it('should get functions that are annotated', function () {
+    const allModules = makeModulesWithAnnotations();
+    function dispatch() {}
+
+    actionBinder.config({useAnnotations: true});
+    actionBinder.bindActions(allModules);
+    const actions = actionBinder.getBoundActions(dispatch);
+    assert(Object.keys(actions.posts()).length === 1);
+    assert(Object.keys(actions.auth()).length === 1);
+    assert(typeof actions.posts().getPosts === 'function');
+    assert(typeof actions.auth().myLogin === 'function');
+  });
 
   it('should ignore functions marked as ignore', function () {
     const allModules = makeModules();

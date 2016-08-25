@@ -1,6 +1,6 @@
 {
   "name": "redux-action-binder",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A helper to easily and efficiently bind and expose redux actions",
   "main": "index.js",
   "scripts": {
