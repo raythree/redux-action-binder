@@ -23,6 +23,11 @@ The name following the @action marker will be used as the property name of the f
   getBoundActions(dispatch).login().loginSubmit(user, pass)
 ```
 
+To enable this feature you must configure the action binder prior to calling bindActions:
+```javascript
+actionBinder.config({useAnnotations: true});
+```
+
 ### Installation
 ```
 npm install redux-action-binder
