@@ -50,12 +50,10 @@ function mapDispatchToProps(dispatch) {
 // or
 
 function mapDispatchToProps(dispatch) {
-  return (dispatch) => {
-    return {
-      login: getBoundActions(dispatch).login(),
-      posts: getBoundActions(dispatch).posts()
-    };  
-  });  
+  return {
+    login: getBoundActions(dispatch).login(),
+    posts: getBoundActions(dispatch).posts()
+  }  
 }
 ```
 Note that getBoundActions returns an object who's properties are functions. Calling posts() the first time will invoke bindActionCreators on all post actions and subsequent calls will return the already bound actions. Actions are bound only once per each module.
