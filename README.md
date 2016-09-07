@@ -47,13 +47,15 @@ function mapDispatchToProps(dispatch) {
   return getBoundActions(dispatch).posts();
 }
 
-// or
+// or to assign actions from multiple modules to the container...
+
+import objectAssign from 'object-assign';
 
 function mapDispatchToProps(dispatch) {
-  return {
-    login: getBoundActions(dispatch).login(),
-    posts: getBoundActions(dispatch).posts()
-  }  
+  return objectAssign({},
+    getBoundActions(dispatch).login(),
+    getBoundActions(dispatch).posts()
+  );  
 }
 ```
 Note that getBoundActions returns an object who's properties are functions. Calling posts() the first time will invoke bindActionCreators on all post actions and subsequent calls will return the already bound actions. Actions are bound only once per each module.
